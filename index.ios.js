@@ -1,10 +1,6 @@
 'use strict';
-// import React, {
-//   AppRegistry,
-// } from 'react-native';
 
-//var Jukebox = require('./components/jukebox.js')
-var openConnection = require('./components/open_connection.js')
+var jukebox = require('./components/jukebox.js')
 
 import React, {
   AppRegistry,
@@ -26,6 +22,7 @@ const styles = StyleSheet.create({
   artwork: {
     width: 200,
     height: 200,
+    marginBottom: 10
   },
   instructions: {
     textAlign: 'center',
@@ -46,12 +43,14 @@ class Jukebox extends Component {
     this.state = {
       track: {},
       rating: {},
+      volume: 0,
     };
   }
 
   componentDidMount() {
     console.log('componentDidMount');
-    openConnection(this);
+    console.log(jukebox);
+    jukebox.openConnection(this);
   }
 
   render() {
@@ -75,15 +74,16 @@ class Jukebox extends Component {
         </Text>
         <SliderIOS
         style={styles.slider}
-        //{...this.props}
+        value={parseInt(this.state.volume)}
         step={1}
         minimumValue={0}
-        maximumValue={100}
-        onValueChange={(value) => this.setState({value: value})} />
+        maximumValue={50}
+        onSlidingComplete={
+          (value) => jukebox.setVolume(value)
+        } />
       </View>
     );
   }
 }
-
 
 AppRegistry.registerComponent('JukeboxReactNative', () => Jukebox);
