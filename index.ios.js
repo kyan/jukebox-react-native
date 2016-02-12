@@ -1,6 +1,7 @@
 'use strict';
 
 var jukebox = require('./components/jukebox.js')
+var Icon = require('react-native-vector-icons/FontAwesome');
 
 import React, {
   AppRegistry,
@@ -9,6 +10,7 @@ import React, {
   SliderIOS,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View,
 } from 'react-native';
 
@@ -22,7 +24,7 @@ const styles = StyleSheet.create({
   artwork: {
     width: 200,
     height: 200,
-    marginBottom: 10
+    marginBottom: 20
   },
   instructions: {
     textAlign: 'center',
@@ -30,9 +32,17 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   slider: {
+    marginTop: 20,
     height: 10,
     margin: 10,
-    width: 200
+    width: 200,
+    marginBottom: 30
+  },
+  controls: {
+
+  },
+  pauseButton: {
+    fontSize: 60
   }
 });
 
@@ -44,12 +54,12 @@ class Jukebox extends Component {
       track: {},
       rating: {},
       volume: 0,
+      playing: false
     };
   }
 
   componentDidMount() {
     console.log('componentDidMount');
-    console.log(jukebox);
     jukebox.openConnection(this);
   }
 
@@ -81,6 +91,16 @@ class Jukebox extends Component {
         onSlidingComplete={
           (value) => jukebox.setVolume(value)
         } />
+        <View style={styles.controls}>
+          <TouchableHighlight
+            onPress={
+              (value) => jukebox.playPause
+            }
+            underlayColor='transparent'
+          >
+            <Icon style={styles.pauseButton} name="pause-circle" color="#000000" />
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }

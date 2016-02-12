@@ -24,6 +24,13 @@ class Jukebox extends Component {
       this.state.conn.onmessage = function(msg){
         var data = JSON.parse(msg.data);
         console.log(data);
+
+        if ("state" in data) {
+          self.setState({
+            playing: (data["state"] == 'play')
+          })
+        }
+
         if ("track" in data) {
           console.log('update track');
           self.setState({
@@ -57,8 +64,20 @@ class Jukebox extends Component {
 
   setVolume(value) {
     console.log('setVolume value: ' + value);
-    console.log(this.state.conn)
+    console.log(this.state.conn);
     this.state.conn.send( this.buildMPDMessage('setvol', value) );
+  }
+
+  playPause() {
+    console.log('playPause');
+    console.log(self.state.playing);
+    if(self.state.playing){
+      console.log('!! play');
+      this.state.conn.send( this.buildMPDMessage('play') );
+    } else {
+      console.log('!! pause');
+      this.state.conn.send( this.buildMPDMessage('pause') );
+    }
   }
 }
 
