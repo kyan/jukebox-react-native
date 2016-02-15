@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   controls: {
 
   },
-  pauseButton: {
+  playPauseButton: {
     fontSize: 60
   }
 });
@@ -61,6 +61,14 @@ class Jukebox extends Component {
   componentDidMount() {
     console.log('componentDidMount');
     jukebox.openConnection(this);
+  }
+
+  playPauseName() {
+    if (this.state.playing) {
+      return 'pause-circle'
+    } else {
+      return 'play-circle'
+    };
   }
 
   render() {
@@ -94,11 +102,11 @@ class Jukebox extends Component {
         <View style={styles.controls}>
           <TouchableHighlight
             onPress={
-              (value) => jukebox.playPause
+              (value) => jukebox.playPause(this)
             }
             underlayColor='transparent'
           >
-            <Icon style={styles.pauseButton} name="pause-circle" color="#000000" />
+            <Icon style={styles.playPauseButton} name={this.playPauseName()} color="#000000" />
           </TouchableHighlight>
         </View>
       </View>

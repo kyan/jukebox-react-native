@@ -15,6 +15,7 @@ class Jukebox extends Component {
     if (this.state.conn.readyState === undefined || this.state.conn.readyState > 1) {
       // Connect to the web socket server
       var uri = "ws://jukebox.local:8081";
+      //var uri = "ws://127.0.0.1:8082";
       this.state.conn = new WebSocket(uri);
 
       this.state.conn.onopen = function(){
@@ -32,14 +33,12 @@ class Jukebox extends Component {
         }
 
         if ("track" in data) {
-          console.log('update track');
           self.setState({
             track: data["track"]
           })
         }
 
         if ("rating" in data) {
-          console.log('update rating');
           self.setState({
             rating: data["rating"]
           })
@@ -68,15 +67,13 @@ class Jukebox extends Component {
     this.state.conn.send( this.buildMPDMessage('setvol', value) );
   }
 
-  playPause() {
+  playPause(self) {
     console.log('playPause');
     console.log(self.state.playing);
     if(self.state.playing){
-      console.log('!! play');
-      this.state.conn.send( this.buildMPDMessage('play') );
-    } else {
-      console.log('!! pause');
       this.state.conn.send( this.buildMPDMessage('pause') );
+    } else {
+      this.state.conn.send( this.buildMPDMessage('play') );
     }
   }
 }
