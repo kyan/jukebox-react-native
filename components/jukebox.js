@@ -49,6 +49,19 @@ class Jukebox extends Component {
             volume: data["volume"]
           })
         }
+
+        if ("playlist" in data) {
+          self.setState({
+            playlist: data["playlist"]
+          })
+        }
+
+        if ("time" in data) {
+          self.setState({
+            time: data["time"]
+          })
+        }
+
       }
     }
     return this.state.conn;
