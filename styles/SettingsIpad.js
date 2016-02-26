@@ -29,12 +29,12 @@ var styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 25,
+    fontSize: 32,
     fontFamily: 'Futura'
   },
   headerText: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 35,
     fontFamily: 'Futura',
     marginBottom: 30
   },
@@ -47,7 +47,7 @@ var styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 32,
     marginRight: 10,
     fontFamily: 'Futura'
   },
@@ -59,10 +59,10 @@ var styles = StyleSheet.create({
   },
   textInput: {
     width: 200,
-    height: 28,
+    height: 38,
     paddingLeft: 5,
-    fontSize: 18,
-    margin: 1,
+    fontSize: 28,
+    marginTop: 5,
     fontFamily: 'Futura',
     borderColor: 'gray',
     borderWidth: 1,

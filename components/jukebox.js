@@ -69,9 +69,10 @@ class Jukebox extends Component {
   }
 
   buildMPDMessage(self, command, value){
-    var payload = { user_id: self.state.current_user_id };
+    var payload = { user_id: parseInt(self.state.current_user_id) };
     payload[command] = (value || '');
     var json_payload = JSON.stringify(payload);
+    console.log(payload);
     return json_payload;
   }
 

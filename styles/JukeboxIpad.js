@@ -9,8 +9,8 @@ var styles = StyleSheet.create({
   },
   artwork: {
     flex: 1,
-    width: 300,
-    height: 300,
+    width: 350,
+    height: 350,
     marginBottom: 20,
     marginLeft: 15
   },
@@ -51,7 +51,8 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     flexDirection:'row',
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    marginTop: 20
   },
   playPauseButton: {
     fontSize: 35

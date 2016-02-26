@@ -1,4 +1,14 @@
+## iOS
+
 Open `ios/JukeboxReactNative.xcodeproj` and select run
+
+## Android
+
+*Within project directory
+
+```react-native run-android```
+
+## Settings
 
 You may need to change `jsCodeLocation` in `AppDelegate` to point to your IP
 

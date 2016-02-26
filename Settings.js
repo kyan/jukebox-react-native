@@ -63,6 +63,7 @@ class Settings extends Component {
 
         <View style={Styles.settingsForm}>
           <Text style={Styles.headerText}>Jukebox Credentials</Text>
+          <View style={{backgroundColor: '#666', height: 1, alignSelf: 'stretch'}} />
 
           <View style={Styles.form}>
             <Text style={Styles.text}>User ID:</Text>
