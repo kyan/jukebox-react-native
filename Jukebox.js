@@ -37,7 +37,7 @@ class Jukebox extends Component {
       playing: false,
       time: 0,
       current_user_id: '',
-      current_user_initials: "AA",
+      current_user_initials: '',
       voteUpStyle: Styles.thumbsUpIcon,
       voteDownStyle: Styles.thumbsDownIcon
     };
@@ -47,6 +47,8 @@ class Jukebox extends Component {
     jukebox.openConnection(this);
     var userId = await AsyncStorage.getItem('@User:current_user_id');
     this.setState({current_user_id: userId});
+    var userInitials = await AsyncStorage.getItem('@User:current_user_initials');
+    this.setState({current_user_initials: userInitials});
     setInterval(
       () => { this.updateProgress() },
       1000

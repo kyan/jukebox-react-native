@@ -31,6 +31,8 @@ class Settings extends Component {
   async componentDidMount() {
     var userId = await AsyncStorage.getItem('@User:current_user_id');
     this.setState({userId: userId});
+    var userInitials = await AsyncStorage.getItem('@User:current_user_initials');
+    this.setState({userInitials: userInitials});
   }
 
   onChangeUserId(text) {
@@ -39,6 +41,17 @@ class Settings extends Component {
     try {
       AsyncStorage.setItem('@User:current_user_id', userId);
       console.log("Saved: " + userId);
+    } catch (error) {
+      console.log("AsyncStorage error:" + error.message);
+    }
+  }
+
+  onChangeUserInitials(text) {
+    var userInitials = text.text;
+    this.setState({userInitials: userInitials})
+    try {
+      AsyncStorage.setItem('@User:current_user_initials', userInitials);
+      console.log("Saved: " + userInitials);
     } catch (error) {
       console.log("AsyncStorage error:" + error.message);
     }
@@ -62,7 +75,7 @@ class Settings extends Component {
           <View style={Styles.form}>
             <Text style={Styles.text}>User Initials:</Text>
             <TextInput style={Styles.textInput}
-              onChangeText={(text) => this.onChangeUserId({text})}
+              onChangeText={(text) => this.onChangeUserInitials({text})}
               value={this.state.userInitials}
             />
           </View>

@@ -21,7 +21,8 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     marginBottom: 15,
-    marginTop: 15
+    marginTop: 15,
+    fontFamily: 'Futura'
   }
 });
 

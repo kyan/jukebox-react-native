@@ -9,8 +9,8 @@ var styles = StyleSheet.create({
   },
   artwork: {
     flex: 1,
-    width: 150,
-    height: 150,
+    width: 250,
+    height: 250,
     marginBottom: 20,
     marginLeft: 15
   },
@@ -18,19 +18,26 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     marginBottom: 5,
+    fontSize: 15,
+    fontFamily: 'Futura'
   },
   volume_container: {
     flex: 1,
     alignSelf: 'stretch',
     flexDirection:'row',
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    marginTop: 25,
+    marginLeft: 100,
+    marginRight: 100
   },
   instructions_alpha: {
     textAlign: 'center',
     color: 'rgba(255,255,255,0.8)',
     marginBottom: 5,
-    textShadowColor: 'rgba(34,34,34,0.4)'
+    textShadowColor: 'rgba(34,34,34,0.4)',
+    fontSize: 12,
+    fontFamily: 'Futura'
   },
   slider: {
     margin: 10,
