@@ -15,7 +15,7 @@ class Jukebox extends Component {
     if (this.state.conn.readyState === undefined || this.state.conn.readyState > 1) {
       // Connect to the web socket server
       var uri = "ws://jukebox.local:8081";
-      //var uri = "ws://127.0.0.1:8082";
+      // var uri = "ws://127.0.0.1:8085";
       this.state.conn = new WebSocket(uri);
 
       this.state.conn.onopen = function(){
@@ -42,6 +42,7 @@ class Jukebox extends Component {
           self.setState({
             rating: data["rating"]
           })
+          self.updateRating();
         }
 
         if ("volume" in data) {
@@ -67,26 +68,34 @@ class Jukebox extends Component {
     return this.state.conn;
   }
 
-  buildMPDMessage(command, value){
-    var payload = { user_id: null };
+  buildMPDMessage(self, command, value){
+    var payload = { user_id: self.state.current_user_id };
     payload[command] = (value || '');
     var json_payload = JSON.stringify(payload);
     return json_payload;
-  };
+  }
 
-  setVolume(value) {
-    console.log('setVolume value: ' + value);
-    console.log(this.state.conn);
-    this.state.conn.send( this.buildMPDMessage('setvol', value) );
+  vote(self, state) {
+    this.state.conn.send( this.buildMPDMessage(self, 'vote', { 'state': state, 'filename': self.state.track.file }) );
+  }
+
+  setVolume(self, value) {
+    this.state.conn.send( this.buildMPDMessage(self, 'setvol', value) );
+  }
+
+  playNext(self) {
+    this.state.conn.send( this.buildMPDMessage(self, 'next') );
+  }
+
+  playPrevious(self) {
+    this.state.conn.send( this.buildMPDMessage(self, 'previous') );
   }
 
   playPause(self) {
-    console.log('playPause');
-    console.log(self.state.playing);
     if(self.state.playing){
-      this.state.conn.send( this.buildMPDMessage('pause') );
+      this.state.conn.send( this.buildMPDMessage(self, 'pause') );
     } else {
-      this.state.conn.send( this.buildMPDMessage('play') );
+      this.state.conn.send( this.buildMPDMessage(self, 'play') );
     }
   }
 }
