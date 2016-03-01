@@ -1,3 +1,9 @@
+# Jukebox React Native
+
+React native jukebox app which inferfaces with the jukebox app through web sockets.
+
+<img src="screenshot.png" width="150">
+
 ## iOS
 
 To run the iOS app:
