@@ -4,8 +4,6 @@ Open `ios/JukeboxReactNative.xcodeproj` and select run
 
 ## Android
 
-*Within project directory
-
 ```react-native run-android```
 
 ## Settings
