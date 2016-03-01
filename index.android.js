@@ -1,51 +1,30 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
 
-class JukeboxReactNative extends Component {
-  render() {
+import React, {AppRegistry, Navigator, StyleSheet, Text, View} from 'react-native'
+import {Router, Route, Schema, Animations, TabBar} from 'react-native-router-flux'
+import Jukebox from './JukeboxAndroid'
+
+class TabIcon extends React.Component {
+  render(){
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Text style={{color: this.props.selected ? 'red' :'black'}}>{this.props.title}</Text>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+export default class Main extends React.Component {
+  render() {
+    return (
+      <Router hideNavBar={true}>
+        <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
+        <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
+        <Schema name="withoutAnimation"/>
+        <Schema name="tab" type="switch" icon={TabIcon} />
 
-AppRegistry.registerComponent('JukeboxReactNative', () => JukeboxReactNative);
+        <Route name="jukebox" component={Jukebox} initial={true} wrapRouter={true} title="Jukebox" hideNavBar={true} />
+      </Router>
+    );
+  }
+}
+
+AppRegistry.registerComponent('JukeboxReactNative', () => Main);

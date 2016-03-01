@@ -13,16 +13,25 @@ class Jukebox extends Component {
 
   openConnection(self) {
     if (this.state.conn.readyState === undefined || this.state.conn.readyState > 1) {
+      console.log("Connecting to the web socket server...")
       // Connect to the web socket server
-      var uri = "ws://jukebox.local:8081";
+      var uri = "ws://192.168.1.221:8081";
       // var uri = "ws://127.0.0.1:8085";
       this.state.conn = new WebSocket(uri);
 
-      this.state.conn.onopen = function(){
-        console.log("Socket opened");
-      }
+      this.state.conn.onopen = () => {
+        console.log("Socket opened!");
+      };
 
-      this.state.conn.onmessage = function(msg){
+      this.state.conn.onerror = (e) => {
+        console.log("Socket error: " + e.message);
+      };
+
+      this.state.conn.onclose = (e) => {
+        console.log("Socket closed: " + e.code + e.reason);
+      };
+
+      this.state.conn.onmessage = (msg) => {
         var data = JSON.parse(msg.data);
         console.log(data);
 
