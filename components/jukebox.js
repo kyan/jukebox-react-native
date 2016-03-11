@@ -1,6 +1,7 @@
 'use strict'
 import React, {
-  Component
+  Component,
+  AsyncStorage
 } from 'react-native';
 
 class Jukebox extends Component {
@@ -15,8 +16,8 @@ class Jukebox extends Component {
     if (this.state.conn.readyState === undefined || this.state.conn.readyState > 1) {
       console.log("Connecting to the web socket server...")
       // Connect to the web socket server
-      var uri = "ws://192.168.1.221:8081";
       // var uri = "ws://127.0.0.1:8085";
+      var uri = "ws://jukebox.local:8081";
       this.state.conn = new WebSocket(uri);
 
       this.state.conn.onopen = () => {
@@ -28,7 +29,7 @@ class Jukebox extends Component {
       };
 
       this.state.conn.onclose = (e) => {
-        console.log("Socket closed: " + e.code + e.reason);
+        console.log("Socket closed: " + e.code + ' reason:' + e.reason);
       };
 
       this.state.conn.onmessage = (msg) => {
@@ -78,35 +79,48 @@ class Jukebox extends Component {
   }
 
   buildMPDMessage(self, command, value){
-    var payload = { user_id: parseInt(self.state.current_user_id) };
+    var payload = {};
     payload[command] = (value || '');
-    var json_payload = JSON.stringify(payload);
     console.log(payload);
-    return json_payload;
+    return payload;
+  }
+
+  sendMPDMessage(payload){
+    AsyncStorage.getItem('@User:current_user_id').then((value) => {
+      payload['user_id'] = parseInt(value);
+      this.state.conn.send(JSON.stringify(payload));
+    }).done()
   }
 
   vote(self, state) {
-    this.state.conn.send( this.buildMPDMessage(self, 'vote', { 'state': state, 'filename': self.state.track.file }) );
+    var payload = this.buildMPDMessage(
+      self, 'vote', { 'state': state, 'filename': self.state.track.file }
+    );
+    this.sendMPDMessage(payload);
   }
 
   setVolume(self, value) {
-    this.state.conn.send( this.buildMPDMessage(self, 'setvol', value) );
+    var payload = this.buildMPDMessage(self, 'setvol', value);
+    this.sendMPDMessage(payload);
   }
 
   playNext(self) {
-    this.state.conn.send( this.buildMPDMessage(self, 'next') );
+    var payload = this.buildMPDMessage(self, 'next');
+    this.sendMPDMessage(payload);
   }
 
   playPrevious(self) {
-    this.state.conn.send( this.buildMPDMessage(self, 'previous') );
+    var payload = this.buildMPDMessage(self, 'previous');
+    this.sendMPDMessage(payload);
   }
 
   playPause(self) {
     if(self.state.playing){
-      this.state.conn.send( this.buildMPDMessage(self, 'pause') );
+      var payload = this.buildMPDMessage(self, 'pause');
     } else {
-      this.state.conn.send( this.buildMPDMessage(self, 'play') );
+      var payload = this.buildMPDMessage(self, 'play');
     }
+    this.sendMPDMessage(payload);
   }
 }
 
