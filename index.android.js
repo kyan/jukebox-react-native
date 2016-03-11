@@ -3,6 +3,7 @@
 import React, {AppRegistry, Navigator, StyleSheet, Text, View} from 'react-native'
 import {Router, Route, Schema, Animations, TabBar} from 'react-native-router-flux'
 import Jukebox from './JukeboxAndroid'
+import Settings from './SettingsAndroid'
 
 class TabIcon extends React.Component {
   render(){
@@ -22,7 +23,8 @@ export default class Main extends React.Component {
         <Schema name="tab" type="switch" icon={TabIcon} />
 
         <Route name="jukebox" component={Jukebox} initial={true} wrapRouter={true} title="Jukebox" hideNavBar={true} />
-      </Router>
+        <Route name="settings" component={Settings} title="Settings" hideNavBar={true} schema="withoutAnimation" />
+    </Router>
     );
   }
 }
