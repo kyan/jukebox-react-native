@@ -36,6 +36,7 @@ class Jukebox extends Component {
       volume: 0,
       playing: false,
       time: 0,
+      timer: null,
       current_user_id: '',
       current_user_initials: '',
       voteUpStyle: Styles.thumbsUpIcon,
@@ -49,10 +50,23 @@ class Jukebox extends Component {
     this.setState({current_user_id: userId});
     var userInitials = await AsyncStorage.getItem('@User:current_user_initials');
     this.setState({current_user_initials: userInitials});
-    setInterval(
+    if (this.state.playing) {
+      this.startTimer();
+    }
+  }
+
+  startTimer() {
+    var timer = setInterval(
       () => { this.updateProgress() },
       1000
     );
+    this.setState({
+      timer: timer
+    })
+  }
+
+  stopTimer() {
+    clearInterval(this.state.timer);
   }
 
   updateProgress() {
@@ -98,6 +112,15 @@ class Jukebox extends Component {
     } else {
       return 'play'
     };
+  }
+
+  playPause(value) {
+    if(this.state.playing){
+      this.stopTimer()
+    } else {
+      this.startTimer()
+    }
+    jukebox.playPause(this);
   }
 
   voteUp() {
@@ -201,7 +224,7 @@ class Jukebox extends Component {
             <TouchableHighlight
               style={Styles.largeButton}
               onPress={
-                (value) => jukebox.playPause(this)
+                (value) => this.playPause(value)
               }
               underlayColor='transparent'
               >
