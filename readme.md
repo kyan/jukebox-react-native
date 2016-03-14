@@ -37,3 +37,7 @@ Debugging: http://localhost:8081/debugger-ui
 ## Setup
 
 Run ```npm install``` within root folder to install all node dependancies
+
+## Debugging
+
+Apple + D in the simulator brings up the React Native options menu.
