@@ -120,6 +120,7 @@ class Jukebox extends Component {
       <View style={Styles.volume_container}>
       <Icon style={Styles.volumeIcon} name="volume-down" color="#666" />
       <Slider
+      thumbTintColor='white'
       style={Styles.slider}
       value={parseInt(this.state.volume)}
       step={1}

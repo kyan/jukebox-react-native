@@ -10,7 +10,7 @@ import React, {
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux'
-var Styles = require('./styles/Settings')
+var Styles = require('./styles/SettingsAndroid')
 
 class Settings extends Component {
   constructor(props) {
