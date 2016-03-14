@@ -7,7 +7,8 @@ import React, {
   Text,
   TouchableHighlight,
   View,
-  AsyncStorage
+  AsyncStorage,
+  AppStateIOS
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux'
@@ -45,6 +46,7 @@ class Jukebox extends Component {
   }
 
   async componentDidMount() {
+    AppStateIOS.addEventListener('change', this._handleAppStateChange.bind(this));
     jukebox.openConnection(this);
     var userId = await AsyncStorage.getItem('@User:current_user_id');
     this.setState({current_user_id: userId});
@@ -52,6 +54,18 @@ class Jukebox extends Component {
     this.setState({current_user_initials: userInitials});
     if (this.state.playing) {
       this.startTimer();
+    }
+  }
+
+  componentWillUnmount() {
+    AppStateIOS.removeEventListener('change', this._handleAppStateChange);
+  }
+
+  _handleAppStateChange(appState) {
+    if (appState == 'active') {
+      jukebox.openConnection(this);
+    } else {
+      jukebox.closeConnection();
     }
   }
 

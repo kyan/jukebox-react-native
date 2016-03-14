@@ -12,11 +12,15 @@ class Jukebox extends Component {
     };
   }
 
+  closeConnection() {
+    this.state.conn.close();
+  }
+
   openConnection(self) {
     if (this.state.conn.readyState === undefined || this.state.conn.readyState > 1) {
       console.log("Connecting to the web socket server...")
       // Connect to the web socket server
-      // var uri = "ws://127.0.0.1:8085";
+      // var uri = "ws://127.0.0.1:8082";
       var uri = "ws://jukebox.local:8081";
       this.state.conn = new WebSocket(uri);
 
