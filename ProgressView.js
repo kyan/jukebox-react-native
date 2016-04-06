@@ -10,9 +10,11 @@ var Device = require('react-native-device');
 
 if (Device.isIpad()) {
   var Styles = require('./styles/ProgressIpad')
+  var ProgressViewWidth = 600;
 }
 else {
   var Styles = require('./styles/Progress')
+  var ProgressViewWidth = 300;
 }
 
 var ProgressView = React.createClass({
@@ -39,7 +41,7 @@ var ProgressView = React.createClass({
     return (
       <View style={Styles.progressContainer}>
         <View style={Styles.progressBarContainer}>
-          <View style={Styles.progressView} width={(time/duration) * 300} />
+          <View style={Styles.progressView} width={(time/duration) * ProgressViewWidth} />
         </View>
         <View>
           <Text style={Styles.timeText}>
