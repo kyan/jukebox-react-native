@@ -10,7 +10,7 @@ To run the iOS app:
 
 ```$ cd jukebox-react-native```
 
-Open ios/JukeboxReactNative.xcodeproj and hit run in Xcode.
+```$ open ios/JukeboxReactNative.xcodeproj``` and hit run in Xcode.
 
 Hit ⌘-R in your iOS simulator to reload the app and see your change!
 
